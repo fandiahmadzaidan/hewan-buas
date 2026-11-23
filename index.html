@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hewan Buas: Para Pemangsa Puncak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#dfe6dc; --surface:#eef2ea; --ink:#17261e; --muted:#4b5d52; --line:#b9c6bb;
+  --accent:#b5651d; --accent-ink:#ffffff; --bar:#2f5d46; --bar-bg:#c9d4ca;
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#101a14; --surface:#18271f; --ink:#e6eee8; --muted:#a3b5a9; --line:#2c4034;
+    --accent:#e39a4d; --accent-ink:#1a1006; --bar:#7fc29c; --bar-bg:#2a3d32;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#101a14; --surface:#18271f; --ink:#e6eee8; --muted:#a3b5a9; --line:#2c4034;
+  --accent:#e39a4d; --accent-ink:#1a1006; --bar:#7fc29c; --bar-bg:#2a3d32;
+  color-scheme: dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Serif 4",Georgia,"Times New Roman",serif;font-size:1.0625rem;line-height:1.65}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+h1,h2,h3,.sans{font-family:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif}
+header.hero{padding:56px 0 28px}
+h1{font-size:clamp(2.4rem,8vw,5rem);line-height:1.02;margin:0 0 18px;font-weight:800;letter-spacing:-0.025em;max-width:14ch}
+.lead{max-width:56ch;color:var(--muted);margin:0}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 18px}
+.chip,.pick{font:inherit;font-family:"Bricolage Grotesque",Arial,sans-serif;cursor:pointer;color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:7px 16px;font-size:.95rem}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.stage{display:grid;grid-template-columns:260px 1fr;gap:20px;align-items:start;padding-bottom:40px}
+.list{display:flex;flex-direction:column;gap:8px}
+.pick{display:flex;align-items:center;gap:12px;border-radius:14px;padding:12px 14px;text-align:left;width:100%;font-size:1.05rem;font-weight:500}
+.pick .e{font-size:1.6rem;line-height:1}
+.pick small{display:block;color:var(--muted);font-size:.8rem;font-weight:500}
+.pick[aria-pressed="true"]{background:var(--surface);border-color:var(--accent);box-shadow:inset 4px 0 0 var(--accent)}
+.panel{background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:28px}
+.panel-top{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.big{font-size:4.5rem;line-height:1}
+.panel h2{margin:0;font-size:2.1rem;line-height:1.1;letter-spacing:-0.01em}
+.latin{font-style:italic;color:var(--muted);margin:2px 0 0}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px}
+.tag{font-family:"Bricolage Grotesque",Arial,sans-serif;font-size:.85rem;border:1.5px solid var(--line);border-radius:8px;padding:3px 10px}
+.tag.status{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:700}
+.desc{max-width:62ch;margin:14px 0 22px}
+.stats{display:grid;gap:14px;margin:0 0 22px}
+.stat .row{display:flex;justify-content:space-between;font-family:"Bricolage Grotesque",Arial,sans-serif;font-size:.95rem;margin-bottom:5px}
+.track{height:12px;background:var(--bar-bg);border-radius:6px;overflow:hidden}
+.fill{height:100%;background:var(--bar);border-radius:6px;width:0;transition:width .5s ease}
+.fact{border-left:4px solid var(--accent);padding:2px 0 2px 16px;margin:0;max-width:62ch}
+.safety{border-top:1.5px solid var(--line);padding:32px 0 48px}
+.safety h2{margin:0 0 10px;font-size:1.5rem}
+.safety p{max-width:62ch;margin:0 0 10px;color:var(--muted)}
+button:focus-visible,#q:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+#q{font-family:"Bricolage Grotesque",Arial,sans-serif;font-size:.95rem;color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:999px;padding:7px 16px;min-width:190px}
+.info{display:grid;grid-template-columns:110px 1fr;gap:6px 14px;margin:0 0 22px;max-width:62ch}
+.info dt{font-family:"Bricolage Grotesque",Arial,sans-serif;font-weight:700}
+.info dd{margin:0}
+.rank{border-top:1.5px solid var(--line);padding:32px 0}
+.rank h2{margin:0 0 8px;font-size:1.5rem}
+.rtab{font-family:"Bricolage Grotesque",Arial,sans-serif;cursor:pointer;color:var(--ink);background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:7px 16px;font-size:.95rem}
+.rtab[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+#rank{display:grid;gap:4px;margin-top:6px}
+.rrow{display:grid;grid-template-columns:28px 150px 1fr 90px;align-items:center;gap:10px;background:transparent;border:0;border-radius:10px;padding:6px 8px;font-family:"Bricolage Grotesque",Arial,sans-serif;font-size:1rem;color:var(--ink);cursor:pointer;text-align:left}
+.rrow:hover{background:var(--surface)}
+.rrow .track,.rrow .fill{display:block}
+.rv{text-align:right;color:var(--muted);font-size:.9rem}
+.note{color:var(--muted);font-size:.9rem;margin:6px 0 0}
+@media (max-width:760px){
+  .info{grid-template-columns:1fr}
+  .rrow{grid-template-columns:24px 96px 1fr 70px;font-size:.85rem}
+  .stage{grid-template-columns:1fr}
+  .list{flex-direction:row;overflow-x:auto;padding-bottom:6px}
+  .pick{flex:0 0 auto;width:auto}
+  .pick small{display:none}
+  .panel{padding:20px}
+}
+@media (prefers-reduced-motion: reduce){.fill{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <h1>Hewan buas, pemangsa di puncak rantai makanan</h1>
+    <p class="lead">Mereka berburu untuk bertahan hidup, bukan karena jahat. Pilih satu hewan di bawah untuk melihat ukuran, kecepatan, dan statusnya di alam liar.</p>
+    <div class="filters" role="group" aria-label="Filter habitat">
+      <button class="chip" data-f="semua" aria-pressed="true">Semua</button>
+      <button class="chip" data-f="darat" aria-pressed="false">Darat</button>
+      <button class="chip" data-f="air" aria-pressed="false">Perairan</button>
+      <input id="q" type="search" placeholder="Cari hewan…" aria-label="Cari hewan">
+    </div>
+  </header>
+
+  <main class="stage">
+    <div class="list" id="list"></div>
+    <article class="panel" id="panel" aria-live="polite"></article>
+  </main>
+
+  <section class="rank">
+    <h2>Peringkat hewan buas</h2>
+    <p class="lead">Urutkan semua hewan berdasarkan satu ukuran, lalu pilih salah satu untuk membaca detailnya.</p>
+    <div class="filters" role="group" aria-label="Urutkan berdasarkan">
+      <button class="rtab" data-m="sp" aria-pressed="true">Kecepatan</button>
+      <button class="rtab" data-m="w" aria-pressed="false">Berat</button>
+      <button class="rtab" data-m="a" aria-pressed="false">Umur</button>
+    </div>
+    <div id="rank"></div>
+    <p class="note">Hewan tanpa data yang andal untuk satu ukuran tidak ditampilkan di peringkat itu. Batang berat memakai skala akar kuadrat agar hewan kecil tetap terlihat.</p>
+  </section>
+
+  <section class="safety">
+    <h2>Jika bertemu hewan buas di alam</h2>
+    <p>Jaga jarak, jangan memberi makan, dan jangan membelakangi atau berlari dari hewan darat besar. Ikuti arahan pemandu atau petugas taman nasional.</p>
+    <p>Hewan-hewan ini juga terancam oleh hilangnya habitat dan perburuan. Melindungi mereka berarti menjaga seluruh ekosistemnya.</p>
+  </section>
+</div>
+
+<script>
+var DATA = [
+  {id:"singa", e:"🦁", n:"Singa", l:"Panthera leo", t:"darat", h:"Sabana Afrika", s:"Rentan", sp:80, w:250, a:14,
+   d:"Satu-satunya kucing besar yang hidup berkelompok. Singa betina yang biasanya memimpin perburuan, sementara kawanan (pride) berbagi hasil buruan.",
+   f:"Singa jantan bisa tidur hingga 20 jam sehari untuk menghemat tenaga."},
+  {id:"harimau", e:"🐅", n:"Harimau Sumatera", l:"Panthera tigris sumatrae", t:"darat", h:"Hutan Sumatera, Indonesia", s:"Kritis", sp:65, w:140, a:15,
+   d:"Anak jenis harimau terkecil dan hanya hidup di Pulau Sumatera. Ia pemburu soliter yang mengandalkan penyergapan di hutan lebat.",
+   f:"Setiap harimau punya pola loreng unik, seperti sidik jari manusia."},
+  {id:"beruang", e:"🐻‍❄️", n:"Beruang Kutub", l:"Ursus maritimus", t:"darat", h:"Es Arktik", s:"Rentan", sp:40, w:700, a:25,
+   d:"Karnivora darat terbesar di dunia. Ia berburu anjing laut di tepi es laut, sehingga mencairnya es Arktik mengancam hidupnya.",
+   f:"Kulit di bawah bulunya hitam, membantu menyerap panas matahari."},
+  {id:"buaya", e:"🐊", n:"Buaya Muara", l:"Crocodylus porosus", t:"air", h:"Muara dan rawa, termasuk Indonesia", s:"Risiko rendah", sp:29, w:1000, a:70,
+   d:"Reptil terbesar yang masih hidup, dengan panjang bisa mencapai sekitar 6 meter. Ia menyergap mangsa dari dalam air dan sanggup berenang di laut lepas.",
+   f:"Gigitannya termasuk yang terkuat di dunia hewan, sekitar 3.700 psi."},
+  {id:"hiu", e:"🦈", n:"Hiu Putih Besar", l:"Carcharodon carcharias", t:"air", h:"Laut beriklim sedang di seluruh dunia", s:"Rentan", sp:56, w:1100, a:70,
+   d:"Pemburu sergap yang sering menyerang anjing laut dari bawah dengan lompatan cepat. Manusia bukan mangsa utamanya.",
+   f:"Hiu ini bisa mencium setetes darah dari jarak jauh di dalam air."},
+  {id:"komodo", e:"🦎", n:"Komodo", l:"Varanus komodoensis", t:"darat", h:"Pulau Komodo dan sekitarnya, NTT", s:"Terancam", sp:20, w:90, a:30,
+   d:"Kadal terbesar di dunia dan hewan asli Indonesia. Gigitannya membawa bakteri dan bisa yang melemahkan mangsa, lalu ia mengikutinya sampai lemas.",
+   f:"Komodo mampu menyantap hingga 80 persen berat tubuhnya dalam sekali makan."}
+];
+DATA.push(
+ {id:"macan-tutul", e:"🐆", n:"Macan Tutul Jawa", l:"Panthera pardus melas", t:"darat", h:"Hutan Pulau Jawa, Indonesia", s:"Kritis", sp:58, w:60, a:15,
+  d:"Kucing besar endemik Jawa yang sebagian besar aktif pada malam hari. Ia pemanjat ulung dan sering menyimpan mangsa di atas pohon.",
+  f:"Varian berbulu hitam pekat disebut macan kumbang."},
+ {id:"serigala", e:"🐺", n:"Serigala Abu-abu", l:"Canis lupus", t:"darat", h:"Hutan dan tundra belahan utara", s:"Risiko rendah", sp:60, w:45, a:8,
+  d:"Berburu dalam kawanan yang biasanya satu keluarga. Kerja sama dan daya tahan, bukan kecepatan, adalah senjata utamanya.",
+  f:"Lolongan serigala bisa terdengar hingga belasan kilometer di wilayah terbuka."},
+ {id:"hyena", e:"🐕", n:"Hyena Tutul", l:"Crocuta crocuta", t:"darat", h:"Sabana Afrika sub-Sahara", s:"Risiko rendah", sp:60, w:60, a:12,
+  d:"Bukan sekadar pemakan bangkai: hyena tutul berburu sendiri sebagian besar makanannya. Kawanannya dipimpin oleh betina.",
+  f:"Rahangnya mampu meremukkan tulang besar."},
+ {id:"orca", e:"🐋", n:"Orca", l:"Orcinus orca", t:"air", h:"Semua samudra, dari kutub hingga tropis", s:"Data kurang", sp:56, w:5000, a:50,
+  d:"Predator puncak laut yang sebenarnya anggota keluarga lumba-lumba. Tiap kelompok punya teknik berburu dan dialek suara sendiri.",
+  f:"Kelompok orca dipimpin betina tertua, dan anak-anaknya sering tinggal bersama induk seumur hidup."},
+ {id:"piton", e:"🐍", n:"Piton Reticulatus", l:"Malayopython reticulatus", t:"darat", h:"Hutan dan rawa Asia Tenggara, termasuk Indonesia", s:"Risiko rendah", sp:null, w:100, a:20,
+  d:"Ular terpanjang di dunia, bisa melebihi 6 meter. Ia tidak berbisa: mangsa dililit hingga tak bisa bernapas, lalu ditelan utuh.",
+  f:"Piton ini perenang andal dan pernah ditemukan di laut antarpulau."},
+ {id:"elang", e:"🦅", n:"Elang Jawa", l:"Nisaetus bartelsi", t:"darat", h:"Hutan pegunungan Jawa, Indonesia", s:"Terancam", sp:null, w:2, a:null,
+  d:"Burung pemangsa langka endemik Jawa yang dikenal sebagai inspirasi lambang Garuda. Ia berburu mamalia kecil, reptil, dan burung dari tajuk hutan.",
+  f:"Jambul di kepalanya membuatnya mudah dikenali."}
+);
+var EXTRA = {
+ "singa":{m:"Zebra, wildebeest, kerbau, dan antelop", b:"Betina berburu bersama, mengepung mangsa lalu menyergap dari jarak dekat."},
+ "harimau":{m:"Rusa, babi hutan, dan tapir", b:"Menguntit diam-diam di hutan lebat, lalu menerkam dari samping atau belakang."},
+ "beruang":{m:"Terutama anjing laut", b:"Menunggu di lubang napas anjing laut atau mengendap di tepi es."},
+ "buaya":{m:"Ikan, kerbau, babi liar, dan kadang hewan ternak", b:"Menyergap dari dalam air di tepi sungai, lalu menyeret mangsa ke air."},
+ "hiu":{m:"Anjing laut, singa laut, dan ikan besar", b:"Menyerang dari bawah dengan kecepatan tinggi, lalu mundur menunggu mangsa lemas."},
+ "komodo":{m:"Rusa timor, babi hutan, dan bangkai", b:"Menyergap, menggigit dengan bisa, lalu membuntuti mangsa sampai melemah."},
+ "macan-tutul":{m:"Rusa, kijang, monyet, dan babi hutan", b:"Menyergap sendirian pada malam hari dan menyeret mangsa naik ke pohon."},
+ "serigala":{m:"Rusa besar, juga mamalia kecil", b:"Mengejar dalam kawanan sampai mangsa kelelahan atau terpisah dari rombongan."},
+ "hyena":{m:"Antelop, zebra muda, dan bangkai", b:"Mengejar bersama dalam kelompok dengan daya tahan tinggi, lalu mengepung mangsa."},
+ "orca":{m:"Ikan, anjing laut, hiu, dan paus kecil", b:"Berburu berkelompok dengan teknik terkoordinasi, kadang membuat ombak untuk menjatuhkan anjing laut dari es."},
+ "piton":{m:"Babi, rusa kecil, kera, dan unggas", b:"Menyergap dari persembunyian, melilit mangsa hingga lemas, lalu menelannya utuh."},
+ "elang":{m:"Mamalia kecil, reptil, dan burung", b:"Mengintai dari dahan tinggi atau terbang melingkar, lalu menukik menyambar mangsa."}
+};
+var MAX = {sp:80, w:6000, a:70};
+var q = "";
+function scale(v,k){return (k==="w" ? Math.sqrt(v/MAX.w) : v/MAX[k])*100;}
+function visible(){return DATA.filter(function(x){return (filter==="semua"||x.t===filter) && (x.n+" "+x.l+" "+x.h).toLowerCase().indexOf(q)>-1;});}
+var cur = "singa", filter = "semua";
+var listEl = document.getElementById("list"), panel = document.getElementById("panel");
+
+function fmt(n){return n.toLocaleString("id-ID");}
+
+function renderList(){
+  listEl.innerHTML = visible().length ? "" : '<p class="latin">Tidak ada hewan yang cocok.</p>';
+  visible().forEach(function(x){
+    var b = document.createElement("button");
+    b.className = "pick";
+    b.setAttribute("aria-pressed", x.id===cur ? "true":"false");
+    b.innerHTML = '<span class="e" aria-hidden="true">'+x.e+'</span><span>'+x.n+'<small>'+x.h+'</small></span>';
+    b.onclick = function(){cur = x.id; renderList(); renderPanel();};
+    listEl.appendChild(b);
+  });
+}
+
+function stat(label, val, unit, key){
+  if(val==null) return "";
+  return '<div class="stat"><div class="row"><span>'+label+'</span><span>'+fmt(val)+' '+unit+'</span></div>'+
+         '<div class="track"><div class="fill" data-w="'+Math.max(2, Math.round(scale(val,key)))+'"></div></div></div>';
+}
+
+function renderPanel(){
+  var x = DATA.filter(function(d){return d.id===cur;})[0];
+  var E = EXTRA[x.id];
+  panel.innerHTML =
+    '<div class="panel-top"><div class="big" aria-hidden="true">'+x.e+'</div><div><h2>'+x.n+'</h2><p class="latin">'+x.l+'</p></div></div>'+
+    '<div class="tags"><span class="tag">'+(x.t==="air"?"Perairan":"Darat")+'</span><span class="tag">'+x.h+'</span><span class="tag status">'+x.s+'</span></div>'+
+    '<p class="desc">'+x.d+'</p>'+
+    '<dl class="info"><dt>Makanan</dt><dd>'+E.m+'</dd><dt>Cara berburu</dt><dd>'+E.b+'</dd></dl>'+
+    '<div class="stats">'+
+      stat("Kecepatan maksimal", x.sp, "km/jam", "sp")+
+      stat("Berat dewasa (maks. umum)", x.w, "kg", "w")+
+      stat("Umur di alam liar", x.a, "tahun", "a")+
+    '</div>'+
+    '<p class="fact">'+x.f+'</p>';
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      panel.querySelectorAll(".fill").forEach(function(f){f.style.width = f.getAttribute("data-w")+"%";});
+    });
+  });
+}
+
+document.querySelectorAll(".chip").forEach(function(c){
+  c.onclick = function(){
+    filter = c.getAttribute("data-f");
+    document.querySelectorAll(".chip").forEach(function(o){o.setAttribute("aria-pressed", o===c?"true":"false");});
+    var vis = visible();
+    if(vis.length && !vis.some(function(x){return x.id===cur;})){cur = vis[0].id;}
+    renderList(); renderPanel();
+  };
+});
+
+renderList(); renderPanel();
+var rm = "sp";
+var RU = {sp:"km/jam", w:"kg", a:"tahun"};
+function renderRank(){
+  var el = document.getElementById("rank");
+  var rows = DATA.filter(function(x){return x[rm]!=null;}).sort(function(a,b){return b[rm]-a[rm];});
+  var top = rows[0][rm];
+  el.innerHTML = rows.map(function(x){
+    var p = Math.max(2, Math.round((rm==="w" ? Math.sqrt(x[rm]/top) : x[rm]/top)*100));
+    return '<button class="rrow" data-id="'+x.id+'"><span aria-hidden="true">'+x.e+'</span><span>'+x.n+'</span><span class="track"><span class="fill" style="width:'+p+'%"></span></span><span class="rv">'+fmt(x[rm])+' '+RU[rm]+'</span></button>';
+  }).join("");
+  el.querySelectorAll(".rrow").forEach(function(b){
+    b.onclick = function(){
+      q = ""; document.getElementById("q").value = "";
+      document.querySelector('.chip[data-f="semua"]').click();
+      cur = b.getAttribute("data-id");
+      renderList(); renderPanel();
+      panel.scrollIntoView({block:"start"});
+    };
+  });
+}
+document.querySelectorAll(".rtab").forEach(function(t){
+  t.onclick = function(){
+    rm = t.getAttribute("data-m");
+    document.querySelectorAll(".rtab").forEach(function(o){o.setAttribute("aria-pressed", o===t ? "true":"false");});
+    renderRank();
+  };
+});
+document.getElementById("q").oninput = function(){
+  q = this.value.trim().toLowerCase();
+  var v = visible();
+  if(v.length && !v.some(function(d){return d.id===cur;})){cur = v[0].id;}
+  renderList(); renderPanel();
+};
+renderList(); renderPanel(); renderRank();
+</script>
+</body>
+</html>
